@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ulraq.net.nz/thymeleaf/layout">
+	<head>
+		<meta charset="utf-8">
+		<title>Elecronic Shop</title>
+		<link rel="stylesheet" type="text/css" th:href="@{/css/style}">
+	</head>
+	<body>
+		<header>
+			<ul>
+				<li><a th:href="@{/utilisateur/home}">HOME</a></li>
+				<li><a th:href="@{/utilisateur/sell}">SELLS</a>
+					<ul class="sous-menu">
+						<li><a th:href="@{/utilisateur/addSell}">Add sell</a></li>								
+					</ul>
+				</li>	
+				<li><a th:href="@{/utilisateur/product}">PRODUCTS</a>
+					<ul class="sous-menu">
+						<li><a th:href="@{/utilisateur/addProd}">Add new product</a></li>
+						<li><a th:href="@{/utilisateur/category}">CATEGORY</a></li>
+						<li><a th:href="@{/utilisateur/unite}">UNITE</a></li>
+					</ul>
+				</li>
+				<li><a th:href="@{/utilisateur/client}">CLIENTS</a>
+					<ul class="sous-menu">
+						<li><a th:href="@{/utilisateur/addCli}">Add client</a></li>
+					</ul>
+				</li>
+				<li><a th:href="@{/utilisateur/commande}">ORDER</a>
+					<ul class="sous-menu">
+						<li><a th:href="@{/utilisateur/addCom}">Create order</a></li>
+					</ul>
+				</li>
+				<li><a th:href="@{/utilisateur/bill}">BILLS</a>					
+				</li>
+				<li><a th:href="@{/admin/user}">USER</a>
+					<ul class="sous-menu">
+						<li><a th:href="@{/admin/addUser}">Add user</a></li>
+						<li><a th:href="@{/admin/role}">Role</a></li>
+						<li><a th:href="@{/admin/urole}">User role</a></li>
+					</ul>
+				</li>
+				<li id="vide">
+				</li>
+				<li id="user">
+					<a th:href="@{/login?logout}" class="logout">Logout</a>					
+				</li>
+				<li id="img">
+					<a><img alt="NO image" height="50" width="50" style="border-radius: 50%" th:if="${usercon}" th:src="@{'/image/'+${usercon.photo}}"></a>
+				</li>
+			</ul>
+		
+		</header>
+		<section layout:fragment="content">
+		
+		</section>
+		<footer class="navbar-fixed-bottom">
+			<div class="container center">				
+				Copyright 2019 all right reserved Mamadou Moustapha Barry!
+			</div>
+		</footer>
+	</body>
+</html>

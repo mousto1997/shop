@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+		xmlns:layout="http://www.ulraq.net.nz/thymeleaf/layout">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+	<title>HOME ~ ELECTRONIC SHOPE</title>
+</head>
+<body class="mybody">	
+	<div class="loginBox">		
+		<h1>Sing up</h1>
+		<form th:action="@{/saveUser}" th:object="${user}" method = "post">
+			
+			<input type="text" name="nom" placeholder="Enter Name" required="required">
+			
+			<input type="text" name="login" placeholder="Enter Username" required="required">			
+			
+			<input type="password" name="pass" placeholder="Enter Password" required="required">
+			
+			<input type="text" name="phone" placeholder="Enter Phone Number" required="required">
+			
+			<input type="email" name="email" placeholder="Enter Email Addresse" required="required">
+			<input type="submit" value="Login">
+			
+		</form>
+	</div>
+</body>
+</html>

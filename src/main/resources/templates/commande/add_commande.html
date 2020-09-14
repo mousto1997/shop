@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+		xmlns:layout="http://www.ulraq.net.nz/thymeleaf/layout">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <title>My shop - Add new Order</title>
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Bootstrap core CSS -->
+  <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <!--external css-->
+  <link th:href="@{/lib/font-awesome/css/font-awesome.css}" rel="stylesheet" />
+  <link th:href="@{/lib/advanced-datatable/css/demo_page.css}" rel="stylesheet" />
+  <link th:href="@{/lib/advanced-datatable/css/demo_table.css}" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{/lib/advanced-datatable/css/DT_bootstrap.css}" />
+  <!-- Custom styles for this template -->
+  <link th:href="@{/css/style1.css}" rel="stylesheet">
+  <link th:href="@{/css/style-responsive.css}" rel="stylesheet">
+  
+  <style>
+  
+  		.selected{background-color: red;}
+  
+  </style>
+
+  <!-- =======================================================
+    Template Name: Dashio
+    Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
+</head>
+
+<body onload="offbtn()">
+  <section id="container">
+    <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+      <a th:href="@{/utilisateur/home}" class="logo"><b>My shop</b></a>
+      <!--logo end-->
+      <div class="nav notify-row" id="top_menu">
+        <!--  notification start -->
+        <ul class="nav top-menu">
+          <!-- settings start -->
+          <li th:if="${incomplete}" class="dropdown">
+            <a th:if="${incomplete}>0" th:href="@{/utilisateur/incomplete}">
+              <i class="fa fa-tasks"></i>
+              <span class="badge bg-theme">[[${incomplete}]]</span>
+              </a>
+            
+          </li>
+          <!-- settings end -->
+          <!-- inbox dropdown start-->
+          <li id="header_inbox_bar" class="dropdown">
+            <a th:if="${incompleteSell}" data-toggle="" class="dropdown-toggle" th:href="@{/utilisateur/addSell}">
+              <i class="fa fa-envelope-o"></i>
+              <span class="badge bg-theme04">[[${incompleteSell}]]</span>
+              </a>
+            
+          </li>
+          <!-- inbox dropdown end -->
+          <!-- notification dropdown start-->
+          <li id="header_notification_bar" class="dropdown">
+            <a th:if="${activity}" data-toggle="" class="dropdown-toggle" th:href="@{/utilisateur/activity}">
+              <i class="fa fa-bell-o"></i>
+              <span class="badge bg-warning">[[${activity}]]</span>
+              </a>
+          </li>
+          <!-- notification dropdown end -->
+        </ul>
+        <!--  notification end -->
+      </div>
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" th:href="@{/login?logout}">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <!--header end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a th:if="${usercon}" href="profile.html"><img th:src="@{'/image/'+${usercon.photo}}" class="img-circle" width="80"></a></p>
+          <h5 th:if="${usercon}" class="centered" th:text="${usercon.nom}"></h5>
+          <li class="mt">
+            <a class="active" th:href="@{/utilisateur/home}">
+              <i class="fa fa-home"></i>
+              <span>Home</span>
+              </a>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-shopping-cart"></i>
+              <span>SELL</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/sell}">List sell</a></li>
+              <li><a th:href="@{/utilisateur/addSell}">Add sell</a></li>              
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-book"></i>
+              <span>PRODUCTS</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/product}">List products</a></li>
+              <li><a th:href="@{/utilisateur/addProd}">Add product</a></li>
+              <li><a th:href="@{/utilisateur/category}">Category</a></li>
+              <li><a th:href="@{/utilisateur/unite}">Unite</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-group"></i>
+              <span>CLIENTS</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/client}">List client</a></li>
+              <li><a th:href="@{/utilisateur/addCli}">Add client</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-tasks"></i>
+              <span>ORDERS</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/commande}">List orders</a></li>
+              <li><a th:href="@{/utilisateur/client}">Create order</a></li>
+              <li><a th:href="@{/utilisateur/bill}">Bills</a></li>
+              <li><a th:href="@{/utilisateur/pay}">Pays</a></li>
+            </ul>
+          </li>
+          <li th:if="${usercon.login}=='barry997o'" class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-user"></i>
+              <span>USERS</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/admin/user}">List users</a></li>
+              <li><a th:href="@{/admin/addUser}">Add user</a></li>
+              <li><a th:href="@{/admin/role}">Role</a></li>
+              <li><a th:href="@{/admin/urole}">User role</a></li>
+            </ul>
+          </li>
+          <li>
+            <a #href="google_maps.html">
+              <i class="fa fa-map-marker"></i>
+              <span>Google Maps </span>
+              </a>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-th"></i>
+              <span>MORE</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/report}">Report</a></li>
+              <li><a th:href="@{/utilisateur/movement}">Movements</a></li>
+              <li><a th:href="@{/utilisateur/activity}">Activity</a></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN CONTENT
+        *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+      <div class="row">
+	   	<div class="col-lg-5 col-md-5 col-sm-12">
+	    	<h3><i class="fa fa-angle-right"></i> ADD NEW COMMANDE</h3>
+	    </div>
+      	<div class="col-lg-5 col-md-5" style="margin-top: 20px;">
+	      <form th:action="@{/utilisateur/saveOrder}" th:object="${commande}" method="post">
+		      <input type="hidden" name="idCom" th:value="${commande.idCom}">
+		      <label class="col-lg-2 col-md-2">Client </label>
+		      <div class="col-lg-7 col-md-7">
+			      <select name="client" class="form-control">
+			        <option th:each="c:${clients}" th:value="${c.idCli}" th:text="${c.nom}" th:field=*{client} >
+			      </select>
+		      </div>
+		      <button type="submit" id="btnsave" class="btn btn-primary">Save order</button>
+	      </form>	      
+      	</div>
+      	<div style="margin-top: 20px;">
+      		<a th:href="@{/utilisateur/cancelOrder(idCom=${commande.idCom})}"><button class="btn btn-danger">Cancel order</button></a>
+      	</div>
+      </div>  <hr>
+        <!-- LIST OF AVAILABLE PRODUCTS -->
+        <div class="col-md-5 col-sm-10 col-lg-5 mb">
+           <!-- REVENUE PANEL -->
+           <div class="panel pn">
+             <div class="panel-header">
+             <div class="col-lg-8 col-md-8">
+               <h3 style="text-align: center;">Available products</h3>
+             </div>
+             
+             </div>             
+               <!-- Table - list role -->
+		          <!-- page start-->
+		          <div class="content-panel">
+		            <div style="margin: 5px;" class="adv-table">
+		              <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+		                <thead>
+		                  <tr>
+		                    <th>PRODUCT</th>
+		                    <th style="display: none">PRODUCT</th>
+		                    <th style="display: none">PRODUCT</th>
+		                    <th style="display: none">PRODUCT</th>
+		                    <th style="display: none">PRODUCT</th>
+		                    <th style="display: none">PRODUCT</th>
+		                    <th style="display: none">PRODUCT</th>            
+		                  </tr>
+		                </thead>
+		                <tbody>
+		                  <tr class="gradeX" th:each="p:${products}">
+		                    <td th:text="${p.designation} + ' - ' + ${p.description}+ '('+${p.qteStock}+ ')'"></td>
+		                    <td style="display: none" th:text="${p.idProd}"></td>
+		                    <td style="display: none" th:text="${p.designation}"></td>
+		                    <td style="display: none" th:text="${p.description}"></td>
+		                    <td style="display: none" th:text="${p.siz}"></td>
+		                    <td style="display: none" th:text="${p.price}"></td>
+		                    <td style="display: none" th:text="${p.qteStock}"></td>
+		                  </tr>                  
+		                </tbody>
+		              </table>
+		            </div>
+		         </div>
+		       </div> 	
+         </div>        
+         
+         <!-- Edit measure -->
+         <div class="col-md-7 col-sm-10 col-lg-7 mb">
+           <!-- REVENUE PANEL -->
+               <!-- Form add new role -->
+		          <div class="col-lg-12"> 
+		          <form th:action="@{/utilisateur/addLine}" method="post">
+		          	<input type="hidden" name="idCom" th:value="${commande.idCom}">
+	                <input type="hidden" name="idProd" id="fid">
+	                  <div class="col-lg-6 col-md-6"> <!-- col-lg-6 -->
+	                    <label style="margin-top: 5px" for="firstname" class="control-label col-lg-4">Designation</label>
+	                    <div class="col-lg-8">
+	                      <input style="margin-top: 5px" class="form-control" id="fdesignation" name="designation" readonly="readonly" required="required" type="text"/>
+	                    </div>
+	                    <label style="margin-top: 5px" for="firstname" class="control-label col-lg-4">Description</label>
+	                    <div class="col-lg-8">
+	                      <input style="margin-top: 5px" class=" form-control" id="fdescription" name="description"  type="text"/>
+	                    </div>	         
+	                    <label style="margin-top: 5px" for="firstname" class="control-label col-lg-4">Size</label>
+	                    <div class="col-lg-8">
+	                      <input style="margin-top: 5px" class=" form-control" id="fsize" name="size"  type="text"/>
+	                    </div>
+	                  </div>                               <!-- /col-lg-6 -->
+	                  <div class="col-lg-6 col-md-6">
+	                    <label style="margin-top: 5px" for="firstname" class="control-label col-lg-4">Price</label>
+	                    <div class="col-lg-8">
+	                      <input style="margin-top: 5px" class=" form-control" id="fprice" name="price"  type="text" required="required"/>
+	                    </div>
+	                    <label style="margin-top: 5px"  for="firstname" class="control-label col-lg-4">Quantity</label>
+	                    <div class="col-lg-8">
+	                      <input style="margin-top: 5px" class=" form-control" id="fquantity" name="quantity" type="number" required="required" />
+	                    </div>
+	                    <div class="col-lg-offset-4 col-lg-8">
+	                      <button style="margin-top: 5px" type="submit" id="btnadd" class="btn btn-theme">Add</button>
+	                      
+	                    </div>
+	                  </div> <!-- /col-lg-6 -->
+		            </form>
+		          </div>
+		            <!-- /form-panel -->
+		            <!-- List of selected products -->
+		            <!-- /col-md-12 -->
+		          <div class="col-md-12 mt">
+		            <div class="content-panel">
+		              <table class="table table-hover" id="table1">
+		                <h4><i class="fa fa-angle-right"></i> Selected products</h4>
+		                <hr>
+		                <thead>
+		                  <tr >
+		                    <th>DESIGNATION</th>
+		                    <th>QUANTITY</th>
+		                    <th>PRICE</th>
+		                    <th>AMOUNT</th>
+		                  </tr>
+		                </thead>
+		                <tbody>
+		                  <tr th:each="d:${details}">
+		                  	<td th:text="${d.product.designation}"></td>
+		                  	<td th:text="${d.qteCom}"></td>
+		                  	<td th:text="${d.prixUnit}"></td>
+		                  	<td th:text="${d.qteCom} * ${d.prixUnit}"></td>
+		                  	<td>
+		                  	<a th:href="@{/utilisateur/pullProd(idDCom=${d.idDCom})}"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
+		                  	</td>
+		                  </tr>
+		                </tbody>
+		                <tfoot>
+		                	<tr>
+		                		<th></th><th th:text="'Items : '+${items}"></th>
+		                		<th th:text="'Articles : '+${articles}"></th>
+		                		<th id="amount" colspan="2" th:text="${amount}"></th>
+		                	</tr>
+		                </tfoot>
+		              </table>
+		           </div>
+		         </div>
+		          <!-- /col-md-12 -->
+		        </div>
+		          <!-- /col-lg-12 -->
+         
+         
+        <!-- /row -->
+      </section>
+      <!-- /wrapper -->
+    </section>
+    <!-- /MAIN CONTENT -->
+    <!--main content end-->
+    <!--footer start-->
+    <footer class="site-footer">
+      <div class="text-center">
+        <p>
+          &copy; Copyrights <strong>MOUSTAPHA BARRY</strong>. All Rights Reserved
+        </p>
+        <div class="credits">
+          <!--
+            You are NOT allowed to delete the credit link to TemplateMag with free version.
+            You can delete the credit link only if you bought the pro version.
+            Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/dashio-bootstrap-admin-template/
+            Licensing information: https://templatemag.com/license/
+          -->
+          Created with Dashio template, Spring JAVA by <a href="https://templatemag.com/">TemplateMag</a>
+        </div>
+        <a th:href="@{/utilisateur/product}" class="go-top">
+          <i class="fa fa-angle-up"></i>
+          </a>
+      </div>
+    </footer>
+    <!--footer end-->
+  </section>
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script th:src="@{/lib/jquery/jquery.min.js}"></script>
+  <script type="text/javascript" language="javascript" th:src="@{/lib/advanced-datatable/js/jquery.js}"></script>
+  <script src="@{/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" th:src="@{/lib/jquery.dcjqaccordion.2.7.js}"></script>
+  <script th:src="@{/lib/jquery.scrollTo.min.js}"></script>
+  <script th:src="@{/lib/jquery.nicescroll.js}" type="text/javascript"></script>
+  <script type="text/javascript" language="javascript" th:src="@{/lib/advanced-datatable/js/jquery.dataTables.js}"></script>
+  <script type="text/javascript" th:src="@{/lib/advanced-datatable/js/DT_bootstrap.js}"></script>
+  <!--common script for all pages-->
+  <script th:src="@{/lib/common-scripts.js}"></script>   
+<!-- <script th:src="@{/lib/calendar-conf-events.js}"></script>  -->
+  <!--script for this page-->
+  
+  <script type="text/javascript">
+    /* Formating function for row details */
+    
+    /* Select product for the order // by double clicking on a row the product is added to the form for adding the order quantity*/
+    var table = document.getElementById('hidden-table-info'),rIndex;
+    
+    for(var i = 1; i < table.rows.length; i++)
+    {
+    	table.rows[i].onclick = function()
+    	{
+    		rIndex = this.rowIndex;
+    		document.getElementById("fid").value = this.cells[2].innerHTML;
+    		document.getElementById("fdesignation").value = this.cells[3].innerHTML;
+    		document.getElementById("fdescription").value = this.cells[4].innerHTML;
+    		document.getElementById("fsize").value = this.cells[5].innerHTML;
+    		document.getElementById("fprice").value = this.cells[6].innerHTML;
+    		document.getElementById("fquantity").max = this.cells[7].innerHTML;
+    		document.getElementById("fquantity").value = "";
+    		document.getElementById("fquantity").focus();
+    		document.getElementById("fquantity").min = "1";
+    		onbtn();
+    		
+    	};
+    }
+    
+    function offbtn(){
+    	document.getElementById("btnadd").disabled = true;
+    	
+    	var table1 = document.getElementById("table1");
+        var nrow = 0;
+        
+    	for(var i = 0; i < table1.rows.length; i++){
+    		nrow += 1;
+    	}
+    	
+        if(nrow < 3){
+        	document.getElementById("btnsave").disabled = true;
+        }else{
+        	document.getElementById("btnsave").disabled = false;
+        }
+        const formater = new Intl.NumberFormat("en");
+        document.getElementById("amount").innerHTML = 'T Amount : '+ formater.format(document.getElementById("amount").innerHTML);
+    }
+    
+    function onbtn(){
+    	document.getElementById("btnadd").disabled = false;
+    }
+    
+ /*   function checkadd(){
+    	document.getElementById("btnadd").disabled(true);
+    }
+    
+     Remove a product from the selected product list 
+    
+    var table1 = document.getElementsByTagName("table")[1];
+    
+    for(var i = 0; i < table1.rows.length; i++)
+    	{
+    		table1.rows[i].cells[0].onclick = function()
+    		{
+    			//deleteRow(i);
+    			console.log(table1.rows[i].cells[0].innerHTML)
+    		};
+    	}
+    */
+    /* ADD PRODUCTS TO THE TABLE  */
+    
+   function addRow()
+    {
+    	// get input value
+    	
+    	var idProd = document.getElementById("fid").value;
+    	var designation = document.getElementById("fdesignation").value;
+    	var quantity = document.getElementById("fquantity").value;
+    	var price = document.getElementById("fprice").value;
+    	var qtyprice = quantity * price;
+    	
+    	var table = document.getElementsByTagName('table')[1], articles = 0, amount = 0, rIndex;
+    	var lid = new Array();
+    	var ligne = 0;
+    	
+    	if(designation =! "" && quantity > 1)	
+    	{	
+	    	for(j = 1; j < table.rows.length-1; j++)	
+	    		{
+	    			lid.push(table.rows[j].cells[0].innerHTML);
+	    			if(table.rows[j].cells[0].innerHTML == idProd)
+	    				{
+	    					ligne = j;
+	    				}
+	    		}	
+	    		
+    		if(lid.includes(idProd))        // if a product exist in the selected product list we change the quantity by the new gives and the amount is updated
+			{
+   				table.rows[ligne].cells[2].innerHTML = quantity;
+   				table.rows[ligne].cells[4].innerHTML = qtyprice;
+			}else{                                                  // if the product doesn't exist 
+			
+				var newRow = table.insertRow(table.rows.length - 1);    // we create a new row
+																		// we create cells
+	   	    	var cel1 = newRow.insertCell(0);
+	   	    	var cel2 = newRow.insertCell(1);
+	   	    	var cel3 = newRow.insertCell(2);
+	   	    	var cel4 = newRow.insertCell(3);
+	   	    	var cel5 = newRow.insertCell(4);
+	   	    															// we atribute the cells their values
+	   	    	cel1.innerHTML = idProd;
+	   	    	cel2.innerHTML = designation;
+	   	    	cel3.innerHTML = quantity;
+	   	    	cel4.innerHTML = price;
+	   	    	cel5.innerHTML = qtyprice;
+			}
+    		
+	    	var products = new Array();										// this array gather the whole selected products
+    	// find amount articles and total amount
+    	for(var i = 1; i < table.rows.length-1; i++)
+    		{
+    			var product = [parseInt(table.rows[i].cells[0].innerHTML), // get the last selected product to push in the list
+    						table.rows[i].cells[1].innerHTML,
+		    				parseInt(table.rows[i].cells[2].innerHTML), 
+		    				parseFloat(table.rows[i].cells[3].innerHTML), 
+		    				parseFloat(table.rows[i].cells[4].innerHTML)]; 
+    			articles = articles + parseInt(table.rows[i].cells[2].innerHTML);
+    			amount = amount + parseInt(table.rows[i].cells[4].innerHTML);
+    			products.push(product);                                       // charge the array of products
+    		}    	
+    	// atribute amount articles, the total amount and the amount of items
+    	document.getElementById("articles").value = articles;
+    	document.getElementById("amount").value = amount;
+    	document.getElementById("items").value = table.rows.length - 2;
+    	
+    	// fill the order form by givin the total amount and the selected products
+    	document.getElementById("montantt").value = amount;
+		document.getElementById("listprod").value = products;
+   		alert(products[0][3]);
+   		alert(amount);
+    	}else{
+    		alert("Select a product and give the quantity needed !");
+    	}
+    }
+    //''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+    // SAVE ORDER
+    
+    // ''''''''''''''''''''''''''
+    
+    function fnFormatDetails(oTable, nTr) {
+      var aData = oTable.fnGetData(nTr);
+      var sOut = aData[5];
+   
+      return sOut;
+    }
+
+    $(document).ready(function() {
+      /*
+       * Insert a 'details' column to the table
+       */
+      var nCloneTh = document.createElement('th');
+      var nCloneTd = document.createElement('td');
+      nCloneTd.innerHTML = '<img src="static/lib/advanced-datatable/images/details_open.png">';
+      nCloneTd.className = "center";
+
+      $('#hidden-table-info thead tr').each(function() {
+        this.insertBefore(nCloneTh, this.childNodes[0]);
+      });
+
+      $('#hidden-table-info tbody tr').each(function() {
+        this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
+      });
+
+      /*
+       * Initialse DataTables, with no sorting on the 'details' column
+       */
+      var oTable = $('#hidden-table-info').dataTable({
+        "aoColumnDefs": [{
+          "bSortable": false,
+          "aTargets": [0]
+        }],
+        "aaSorting": [
+          [1, 'asc']
+        ]
+      });
+
+      /* Add event listener for opening and closing details
+       * Note that the indicator for showing which row is open is not controlled by DataTables,
+       * rather it is done here
+       */
+      $('#hidden-table-info tbody td img').live('click', function() {
+        var nTr = $(this).parents('tr')[0];
+        if (oTable.fnIsOpen(nTr)) {
+          /* This row is already open - close it */
+          this.src = "lib/advanced-datatable/media/images/details_open.png";
+          oTable.fnClose(nTr);
+        } else {
+          /* Open this row */
+          this.src = "lib/advanced-datatable/images/details_close.png";
+          oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+		xmlns:layout="http://www.ulraq.net.nz/thymeleaf/layout">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <title>My shop - role</title>
+
+  <!-- Favicons -->
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Bootstrap core CSS -->
+  <link th:href="@{/lib/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <!--external css-->
+  <link th:href="@{/lib/font-awesome/css/font-awesome.css}" rel="stylesheet" />
+  <link th:href="@{/lib/advanced-datatable/css/demo_page.css}" rel="stylesheet" />
+  <link th:href="@{/lib/advanced-datatable/css/demo_table.css}" rel="stylesheet" />
+  <link rel="stylesheet" th:href="@{/lib/advanced-datatable/css/DT_bootstrap.css}" />
+  <!-- Custom styles for this template -->
+  <link th:href="@{/css/style1.css}" rel="stylesheet">
+  <link th:href="@{/css/style-responsive.css}" rel="stylesheet">
+
+  <!-- =======================================================
+    Template Name: Dashio
+    Template URL: https://templatemag.com/dashio-bootstrap-admin-template/
+    Author: TemplateMag.com
+    License: https://templatemag.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+  <section id="container">
+    <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+      <div class="sidebar-toggle-box">
+        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+      </div>
+      <!--logo start-->
+      <a th:href="@{/utilisateur/home}" class="logo"><b>My shop</b></a>
+      <!--logo end-->
+      <div class="nav notify-row" id="top_menu">
+        <!--  notification start -->
+        <ul class="nav top-menu">
+          <!-- settings start -->
+          <li th:if="${incomplete}" class="dropdown">
+            <a th:if="${incomplete}>0" th:href="@{/utilisateur/incomplete}">
+              <i class="fa fa-tasks"></i>
+              <span class="badge bg-theme">[[${incomplete}]]</span>
+              </a>
+            
+          </li>
+          <!-- settings end -->
+          <!-- inbox dropdown start-->
+          <li id="header_inbox_bar" class="dropdown">
+            <a th:if="${incompleteSell}" data-toggle="" class="dropdown-toggle" th:href="@{/utilisateur/addSell}">
+              <i class="fa fa-envelope-o"></i>
+              <span class="badge bg-theme04">[[${incompleteSell}]]</span>
+              </a>
+            
+          </li>
+          <!-- inbox dropdown end -->
+          <!-- notification dropdown start-->
+          <li id="header_notification_bar" class="dropdown">
+            <a th:if="${activity}" data-toggle="" class="dropdown-toggle" th:href="@{/utilisateur/activity}">
+              <i class="fa fa-bell-o"></i>
+              <span class="badge bg-warning">[[${activity}]]</span>
+              </a>
+          </li>
+          <!-- notification dropdown end -->
+        </ul>
+        <!--  notification end -->
+      </div>
+      <div class="top-menu">
+        <ul class="nav pull-right top-menu">
+          <li><a class="logout" th:href="@{/login?logout}">Logout</a></li>
+        </ul>
+      </div>
+    </header>
+    <!--header end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+      <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a th:if="${usercon}" href="profile.html"><img th:src="@{'/image/'+${usercon.photo}}" class="img-circle" width="80"></a></p>
+          <h5 th:if="${usercon}" class="centered" th:text="${usercon.nom}"></h5>
+          <li class="mt">
+            <a class="active" th:href="@{/utilisateur/home}">
+              <i class="fa fa-home"></i>
+              <span>Home</span>
+              </a>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-shopping-cart"></i>
+              <span>SELL</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/sell}">List sell</a></li>
+              <li><a th:href="@{/utilisateur/addSell}">Add sell</a></li>              
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-book"></i>
+              <span>PRODUCTS</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/product}">List products</a></li>
+              <li><a th:href="@{/utilisateur/addProd}">Add product</a></li>
+              <li><a th:href="@{/utilisateur/category}">Category</a></li>
+              <li><a th:href="@{/utilisateur/unite}">Unite</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-group"></i>
+              <span>CLIENTS</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/client}">List client</a></li>
+              <li><a th:href="@{/utilisateur/addCli}">Add client</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-tasks"></i>
+              <span>ORDERS</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/commande}">List orders</a></li>
+              <li><a th:href="@{/utilisateur/client}">Create order</a></li>
+              <li><a th:href="@{/utilisateur/bill}">Bills</a></li>
+              <li><a th:href="@{/utilisateur/pay}">Pays</a></li>
+            </ul>
+          </li>
+          <li th:if="${usercon.login}=='barry997o'" class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-user"></i>
+              <span>USERS</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/admin/user}">List users</a></li>
+              <li><a th:href="@{/admin/addUser}">Add user</a></li>
+              <li><a th:href="@{/admin/role}">Role</a></li>
+              <li><a th:href="@{/admin/urole}">User role</a></li>
+            </ul>
+          </li>
+          <li>
+            <a #href="google_maps.html">
+              <i class="fa fa-map-marker"></i>
+              <span>Google Maps </span>
+              </a>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-th"></i>
+              <span>MORE</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/report}">Report</a></li>
+              <li><a th:href="@{/utilisateur/movement}">Movements</a></li>
+              <li><a th:href="@{/utilisateur/activity}">Activity</a></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+    </aside>
+    <!--sidebar end-->
+    <!-- **********************************************************************************************************************************************************
+        MAIN CONTENT
+        *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <h3><i class="fa fa-angle-right"></i> ROLE</h3>
+        <!-- New role -->
+        <div class="col-md-6 col-sm-10 col-lg-6 mb">
+           <!-- REVENUE PANEL -->
+           <div class="panel pn">
+             <div class="panel-header">
+               <h1 style="text-align: center">Add new role</h1>
+             </div>
+               <!-- Form add new role -->
+		          <div class="col-lg-12">            
+		            <div class="form-panel">
+		              <div class="form">
+		                <form class="cmxform form-horizontal style-form" id="signupForm" th:object="${role}" method="post" th:action="@{/admin/saveRole}">
+		                  <div class="form-group ">
+		                    <label for="firstname" class="control-label col-lg-3">Role *</label>
+		                    <div class="col-lg-9">
+		                      <input class=" form-control" id="firstname" name="role" type="text" required="required" />
+		                    </div>
+		                  </div>
+		                  <div class="form-group">
+		                    <div class="col-lg-offset-2 col-lg-10">
+		                      <button class="btn btn-theme" type="submit">Save</button>
+		                      <button class="btn btn-theme04" type="reset">Cancel</button>
+		                    </div>
+		                  </div>
+		                </form>
+		              </div>
+		            </div>
+		            <!-- /form-panel -->
+		          </div>
+		          <!-- /col-lg-12 -->
+           </div>
+         </div>
+         <!-- List role -->
+         <div class="col-md-6 col-sm-10 col-lg-6 mb">
+           <!-- REVENUE PANEL -->
+           <div class="panel pn">
+             <div class="panel-header">
+               <h1 style="text-align: center;">List of roles</h1>
+             </div><hr>             
+               <!-- Table - list role -->
+		          <!-- page start-->
+		          <div class="content-panel">
+		            <div style="margin: 5px;" class="adv-table">
+		              <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
+		                <thead>
+		                  <tr>
+		                    <th>ROLE</th>
+		                    <th>MORE</th>                    
+		                  </tr>
+		                </thead>
+		                <tbody>
+		                  <tr class="gradeX" th:each="r:${roles}">
+		                    <td th:text="${r.role}"></td>
+		                   <td>  
+		                     <a onclick="return confirm('Would you like to remove this?')" th:href="@{/admin/deleteRole(role=${r.role})}"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
+		                    </td>
+		                  </tr>                  
+		                </tbody>
+		              </table>
+		            </div>
+		          </div>
+		         </div> 		          	
+		          <!-- page end-->
+         </div>
+        <!-- /row -->
+      </section>
+      <!-- /wrapper -->
+    </section>
+    <!-- /MAIN CONTENT -->
+    <!--main content end-->
+    <!--footer start-->
+    <footer class="site-footer">
+      <div class="text-center">
+        <p>
+          &copy; Copyrights <strong>MOUSTAPHA BARRY</strong>. All Rights Reserved
+        </p>
+        <div class="credits">
+          <!--
+            You are NOT allowed to delete the credit link to TemplateMag with free version.
+            You can delete the credit link only if you bought the pro version.
+            Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/dashio-bootstrap-admin-template/
+            Licensing information: https://templatemag.com/license/
+          -->
+          Created with Dashio template, Spring JAVA by <a href="https://templatemag.com/">TemplateMag</a>
+        </div>
+        <a th:href="@{/utilisateur/product}" class="go-top">
+          <i class="fa fa-angle-up"></i>
+          </a>
+      </div>
+    </footer>
+    <!--footer end-->
+  </section>
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script th:src="@{/lib/jquery/jquery.min.js}"></script>
+  <script type="text/javascript" language="javascript" th:src="@{/lib/advanced-datatable/js/jquery.js}"></script>
+  <script src="@{/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" th:src="@{/lib/jquery.dcjqaccordion.2.7.js}"></script>
+  <script th:src="@{/lib/jquery.scrollTo.min.js}"></script>
+  <script th:src="@{/lib/jquery.nicescroll.js}" type="text/javascript"></script>
+  <script type="text/javascript" language="javascript" th:src="@{/lib/advanced-datatable/js/jquery.dataTables.js}"></script>
+  <script type="text/javascript" th:src="@{/lib/advanced-datatable/js/DT_bootstrap.js}"></script>
+  <!--common script for all pages-->
+  <script th:src="@{/lib/common-scripts.js}"></script>
+  <!--script for this page-->
+  <script type="text/javascript">
+    /* Formating function for row details */
+    function fnFormatDetails(oTable, nTr) {
+      var aData = oTable.fnGetData(nTr);
+      var sOut = aData[5];
+   
+      return sOut;
+    }
+
+    $(document).ready(function() {
+      /*
+       * Insert a 'details' column to the table
+       */
+      var nCloneTh = document.createElement('th');
+      var nCloneTd = document.createElement('td');
+      nCloneTd.innerHTML = '<img src="static/lib/advanced-datatable/images/details_open.png">';
+      nCloneTd.className = "center";
+
+      $('#hidden-table-info thead tr').each(function() {
+        this.insertBefore(nCloneTh, this.childNodes[0]);
+      });
+
+      $('#hidden-table-info tbody tr').each(function() {
+        this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
+      });
+
+      /*
+       * Initialse DataTables, with no sorting on the 'details' column
+       */
+      var oTable = $('#hidden-table-info').dataTable({
+        "aoColumnDefs": [{
+          "bSortable": false,
+          "aTargets": [0]
+        }],
+        "aaSorting": [
+          [1, 'asc']
+        ]
+      });
+
+      /* Add event listener for opening and closing details
+       * Note that the indicator for showing which row is open is not controlled by DataTables,
+       * rather it is done here
+       */
+      $('#hidden-table-info tbody td img').live('click', function() {
+        var nTr = $(this).parents('tr')[0];
+        if (oTable.fnIsOpen(nTr)) {
+          /* This row is already open - close it */
+          this.src = "lib/advanced-datatable/media/images/details_open.png";
+          oTable.fnClose(nTr);
+        } else {
+          /* Open this row */
+          this.src = "lib/advanced-datatable/images/details_close.png";
+          oTable.fnOpen(nTr, fnFormatDetails(oTable, nTr), 'details');
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
