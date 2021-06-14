@@ -22,6 +22,7 @@ import net.sid.eboutique.dao.PayeDAO;
 import net.sid.eboutique.dao.ActivityDAO;
 import net.sid.eboutique.dao.ProductDAO;
 import net.sid.eboutique.dao.UserDAO;
+import net.sid.eboutique.dao.UserRoleDAO;
 import net.sid.eboutique.dao.VenteDAO;
 import net.sid.eboutique.entities.Activity;
 import net.sid.eboutique.entities.Commande;
@@ -57,12 +58,15 @@ public class CommandeC {
 	public PayeDAO payService;
 	@Autowired
 	public DetailSellDAO dSellService;
+	@Autowired
+	public UserRoleDAO userRole;
 	
 	//                 go to home page list order                //
 	
 	@RequestMapping(value = "/utilisateur/commande", method = RequestMethod.GET)
 	public String commande(Model model){
 		model.addAttribute("commandes", commandeService.findAll());
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
 		return "commande/list_commande";
 	}
@@ -323,6 +327,7 @@ public class CommandeC {
 		model.addAttribute("products", products);
 		model.addAttribute("clients", clientService.findAll());
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		return "commande/edit_commande";
 	}
 	
@@ -374,7 +379,7 @@ public class CommandeC {
 	//                                Delete order                            //
 	@Autowired
 	public ActivityDAO actService;
-	@RequestMapping(value="/utilisateur/deleteOrder", method = RequestMethod.GET)
+	@RequestMapping(value="/admin/deleteOrder", method = RequestMethod.GET)
 	public String deleteOrder(int idCom){
 		Activity act = new Activity();
 		act.setAction("Supression of order");

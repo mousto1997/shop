@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import net.sid.eboutique.dao.ActivityDAO;
 import net.sid.eboutique.dao.ClientDAO;
 import net.sid.eboutique.dao.UserDAO;
+import net.sid.eboutique.dao.UserRoleDAO;
 import net.sid.eboutique.entities.Activity;
 import net.sid.eboutique.entities.Client;
+import net.sid.eboutique.entities.User;
 
 @Controller
 public class ClientC {
@@ -28,11 +30,14 @@ public class ClientC {
 	public UserDAO userService;
 	@Autowired
 	public ActivityDAO activityService;
+	@Autowired
+	public UserRoleDAO userRole;
 	
 	@RequestMapping(value = "/utilisateur/client", method = RequestMethod.GET)
 	public String client(Model model){	
 		List<Client> clients = clientService.findAll();
 		model.addAttribute("clients", clients);	
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
 		return "client/list_client";
 	}
@@ -88,7 +93,7 @@ public class ClientC {
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
 		return "client/edit_client";
 	}
-	@RequestMapping(value="/utilisateur/deleteClient", method = RequestMethod.GET)
+	@RequestMapping(value="/admin/deleteClient", method = RequestMethod.GET)
 	public String deleteCli(int idCli){
 		Activity act = new Activity();
 		act.setAction("Supression of client");

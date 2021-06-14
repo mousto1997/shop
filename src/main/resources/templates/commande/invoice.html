@@ -209,7 +209,7 @@
                 </div>
                 <!-- /pull-left -->
                 <div class="pull-right">
-                  <h2 th:text="'INVOICE : '+${bill.codeFac}"></h2>
+                  <h2 th:text="'PROFORMA : '+${bill.codeFac}"></h2>
                 </div>
                 <!-- /pull-right -->
                 <div class="clearfix"></div>
@@ -223,13 +223,13 @@
 	                  <strong th:text="${client.company}"></strong><br>
 	                  <label th:text="${client.adress}+', '"></label>
 	                  <label th:text="${client.city}"></label><br>
-	                  <abbr title="Phone">Mobile : </abbr><label th:text="${client.phone}"></label>
+	                  <abbr title="Phone">Tel. : </abbr><label th:text="${client.phone}"></label>
 	                </address>
                   </div>
                   <!-- /col-md-9 -->
                   <div class="col-lg-4 col-md-4">
                     <div class="pull-right">
-                      <div class="pull-left"> ORDER CODE : </div>
+                      <div class="pull-left">CODE COMMANDE : </div>
                       <div class="pull-right" th:text="${commande.codeCom}"></div>
                       <div class="clearfix"></div>
                     </div> <br> 
@@ -253,9 +253,9 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th style="width:120px" class="text-center">QTY</th>
+                      <th style="width:150px" class="text-center">QTY</th>
                       <th class="text-left">DESCRIPTION</th>
-                      <th style="width:140px" class="text-right">UNIT PRICE</th>
+                      <th style="width:140px" class="text-right">PRIX UNITAIRE</th>
                       <th style="width:90px" class="text-right">TOTAL</th>
                     </tr>
                   </thead>

@@ -18,6 +18,7 @@ import net.sid.eboutique.dao.MouvDAO;
 import net.sid.eboutique.dao.ActivityDAO;
 import net.sid.eboutique.dao.ProductDAO;
 import net.sid.eboutique.dao.UserDAO;
+import net.sid.eboutique.dao.UserRoleDAO;
 import net.sid.eboutique.dao.VenteDAO;
 import net.sid.eboutique.entities.Activity;
 import net.sid.eboutique.entities.DetailSell;
@@ -46,6 +47,8 @@ public class VenteC {
 	public UserDAO userService;
 	@Autowired
 	public ActivityDAO activityService;
+	@Autowired
+	public UserRoleDAO userRole;
 
 	
 	//                 go to home page list order                //
@@ -55,6 +58,7 @@ public class VenteC {
 		List<Vente> ventes = venteService.findAll();
 		model.addAttribute("ventes", ventes);
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		return "vente/list_sell";
 	}
 	//                 go to print orders                        //
@@ -355,7 +359,7 @@ public class VenteC {
 	//                                Delete sell                            //
 	@Autowired
 	public ActivityDAO actService;
-	@RequestMapping(value="/utilisateur/deleteSell", method = RequestMethod.GET)
+	@RequestMapping(value="/admin/deleteSell", method = RequestMethod.GET)
 	public String deleteSell(int idSell){
 		Activity act = new Activity();
 		act.setAction("Supression of sell");

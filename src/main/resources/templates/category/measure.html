@@ -277,7 +277,7 @@
 		                    <td th:text="${m.libelleUnit}"></td>
 		                   <td> 
 		                     <a th:href="@{/utilisateur/editUnite(idUnit=${m.idUnit})}"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a> 
-		                     <a onclick="return confirm('Would you like to remove this?')" th:href="@{/utilisateur/deleteUnite(idUnit=${m.idUnit})}"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
+		                     <a onclick="return confirm('Would you like to remove this?')" th:each="u:${userRole}" th:if="${u.role.role} == 'admin'" th:href="@{/admin/deleteUnite(idUnit=${m.idUnit})}"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
 		                    </td>
 		                  </tr>                  
 		                </tbody>

@@ -155,6 +155,7 @@ public class Home {
 			}
 		}
 		model.addAttribute("activity", i);
+		model.addAttribute("userRole", uroleService.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		return "/index";
 	}
 	@SuppressWarnings("deprecation")
@@ -211,6 +212,7 @@ public class Home {
 	@RequestMapping(value="/utilisateur/incomplete", method = RequestMethod.GET)
 	public String incomplet(Model model){
 		model.addAttribute("commandes", commandeService.incompletOrder());
+		model.addAttribute("userRole", uroleService.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		return "commande/incomplete";
 	}
 }

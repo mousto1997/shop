@@ -105,6 +105,20 @@ public class User implements Serializable {
 		this.commande = commande;
 		this.user = user;
 	}
+	
+	
+	
+	public User(String login, String nom, String email, String phone, String password, boolean active) {
+		super();
+		this.login = login;
+		this.nom = nom;
+		this.email = email;
+		this.phone = phone;
+		this.password = password;
+		this.active = active;
+	}
+	
+	
 	public User() {
 		super();
 	}

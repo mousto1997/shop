@@ -212,7 +212,7 @@
                     <td style="display: none" th:text="${c.email}"></td>
                     <td>                      
                       <a th:href="@{/utilisateur/editClient(idCli=${c.idCli})}"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
-                      <a onclick="return confirm('Would you like to remove this?')" th:href="@{/utilisateur/deleteClient(idCli=${c.idCli})}"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
+                      <a onclick="return confirm('Would you like to remove this?')" th:each="u:${userRole}" th:if="${u.role.role} == 'admin'"  th:href="@{/utilisateur/deleteClient(idCli=${c.idCli})}"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
                    	  <a th:href="@{/utilisateur/makeOrder(idCli=${c.idCli})}"><button class="btn btn-success btn-xs"><i class="fa fa-book"> Make a order</i></button></a>
                     </td>
                   </tr>                  

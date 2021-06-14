@@ -18,6 +18,7 @@ import net.sid.eboutique.dao.MouvDAO;
 import net.sid.eboutique.dao.ProductDAO;
 import net.sid.eboutique.dao.UniteDAO;
 import net.sid.eboutique.dao.UserDAO;
+import net.sid.eboutique.dao.UserRoleDAO;
 import net.sid.eboutique.entities.Activity;
 import net.sid.eboutique.entities.Categorie;
 import net.sid.eboutique.entities.Mouvement;
@@ -37,12 +38,15 @@ public class ProductC {
 	public UserDAO userService;
 	@Autowired
 	public ActivityDAO activityService;
+	@Autowired
+	public UserRoleDAO userRole;
 	
 	@RequestMapping(value="/utilisateur/product", method = RequestMethod.GET)
 	public String product(Model model){
 		List<Product> products = productService.products();
 		model.addAttribute("products", products);
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		return "product/list_product";
 	}
 	
@@ -142,7 +146,7 @@ public class ProductC {
 	
 	//                               delete product                             //
 	
-	@RequestMapping(value="/utilisateur/deleteProd", method = RequestMethod.GET)
+	@RequestMapping(value="/admin/deleteProd", method = RequestMethod.GET)
 	public String deleteProduct(int idProd){
 		Activity act = new Activity();
 		act.setAction("Supression of product");
@@ -191,6 +195,7 @@ public class ProductC {
 		model.addAttribute("category", new Categorie());
 		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		return "category/categorie";
 	}
 	
@@ -223,7 +228,7 @@ public class ProductC {
 	@Autowired
 	public ActivityDAO actService;
 	// delete category
-	@RequestMapping(value="/utilisateur/deleteCat", method = RequestMethod.GET)
+	@RequestMapping(value="/admin/deleteCat", method = RequestMethod.GET)
 	public String deleteCat(int idCat){
 		Activity act = new Activity();
 		act.setAction("Supression of Category");
@@ -246,6 +251,7 @@ public class ProductC {
 		model.addAttribute("unite", new Unite());
 		model.addAttribute("measures", uniteService.findAll());
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		return "category/measure";
 	}
 	// save unite
@@ -274,7 +280,7 @@ public class ProductC {
 		return "category/measure";
 	}
 	// delete unite
-	@RequestMapping(value="/utilisateur/deleteUnite", method = RequestMethod.GET)
+	@RequestMapping(value="/admin/deleteUnite", method = RequestMethod.GET)
 	public String deleteUnit(int idUnit){
 		Activity act = new Activity();
 		act.setAction("Supression of measure");

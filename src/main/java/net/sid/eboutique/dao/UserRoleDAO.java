@@ -13,6 +13,6 @@ public interface UserRoleDAO extends JpaRepository<User_role, Integer>{
 	public List<User_role> userRoles(@Param("x")String kw);
 	
 	@Query("select u from User_role u where u.login.login = :x")
-	public User_role uroleByUser(@Param("x")String login);
+	public List<User_role> uroleByUser(@Param("x")String login);
 
 }

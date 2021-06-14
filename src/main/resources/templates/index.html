@@ -104,10 +104,10 @@
           <li class="sub-menu">
             <a href="javascript:;">
               <i class="fa fa-shopping-cart"></i>
-              <span>SELL</span>
+              <span>SELLS</span>
               </a>
             <ul class="sub">
-              <li><a th:href="@{/utilisateur/sell}">List sell</a></li>
+              <li><a th:href="@{/utilisateur/sell}">List of sells</a></li>
               <li><a th:href="@{/utilisateur/addSell}">Add sell</a></li>              
             </ul>
           </li>
@@ -145,7 +145,7 @@
               <li><a th:href="@{/utilisateur/pay}">Pays</a></li>
             </ul>
           </li>
-          <li th:if="${usercon.login}=='barry997o'" class="sub-menu">
+          <li  th:each="u:${userRole}" th:if="${u.role.role} == 'admin'" class="sub-menu">
             <a href="javascript:;">
               <i class="fa fa-user"></i>
               <span>USERS</span>

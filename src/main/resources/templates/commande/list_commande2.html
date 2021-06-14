@@ -216,7 +216,7 @@
                     <td style="font-weight: bold;" th:text="${c.montantR}"></td>
                     <td>
                       <a th:if="${c.montantP}==0" th:href="@{/utilisateur/editOrder(idCom=${c.idCom})}"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
-                      <a onclick="return confirm('Would you like to remove this?')" th:href="@{/utilisateur/deleteOrder(idCom=${c.idCom})}"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
+                      <a  th:each="u:${userRole}" th:if="${u.role.role} == 'admin'" onclick="return confirm('Would you like to remove this?')" th:href="@{/utilisateur/deleteOrder(idCom=${c.idCom})}"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
                       <a th:href="@{/utilisateur/detailOrder(idCom=${c.idCom})}"><button class="btn btn-primary btn-xs"><i class="fa fa-book">detail</i></button></a>
                     </td>
                   </tr>                  
