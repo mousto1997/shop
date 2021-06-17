@@ -1,0 +1,89 @@
+<!DOCTYPE div PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+          <p class="centered"><a th:if="${usercon}" href="profile.html"><img th:src="@{'/image/'+${usercon.photo}}" class="img-circle" width="80"></a></p>
+          <h5 th:if="${usercon}" class="centered" th:text="${usercon.nom}"></h5>
+          <li class="mt">
+            <a class="active" th:href="@{/utilisateur/home}">
+              <i class="fa fa-home"></i>
+              <span>Accueil</span>
+              </a>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-shopping-cart"></i>
+              <span>VENTES</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/sell}">Liste des ventes</a></li>
+              <li><a th:href="@{/utilisateur/addSell}">Ajouter une vente</a></li>              
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-book"></i>
+              <span>PRODUITS</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/product}">Liste des Produits</a></li>
+              <li><a th:href="@{/utilisateur/addProd}">Nouveau Produit</a></li>
+              <li><a th:href="@{/utilisateur/category}">Categorie</a></li>
+              <li><a th:href="@{/utilisateur/unite}">Unité de Mesure</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-group"></i>
+              <span>CLIENTS</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/client}">Liste des clients</a></li>
+              <li><a th:href="@{/utilisateur/addCli}">Ajouter un Client</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-tasks"></i>
+              <span>COMMANDES</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/commande}">Liste des Comman.</a></li>
+              <li><a th:href="@{/utilisateur/client}">New Commande</a></li>
+              <li><a th:href="@{/utilisateur/bill}">Factures</a></li>
+              <li><a th:href="@{/utilisateur/pay}">Payements</a></li>
+            </ul>
+          </li>
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-user"></i>
+              <span>UTILISATEURS</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/admin/user}">Liste des Utilisa..</a></li>
+              <li><a th:href="@{/admin/addUser}">Nouveau Utilisat..</a></li>
+              <li><a th:href="@{/admin/role}">Role</a></li>
+              <li><a th:href="@{/admin/urole}">Role Utilisateurs</a></li>
+            </ul>
+          </li>          
+          <li class="sub-menu">
+            <a href="javascript:;">
+              <i class="fa fa-th"></i>
+              <span>PLUS</span>
+              </a>
+            <ul class="sub">
+              <li><a th:href="@{/utilisateur/report}">Rapport</a></li>
+              <li><a th:href="@{/utilisateur/movement}">Mouvements</a></li>
+              <li><a th:href="@{/utilisateur/activity}">Activités</a></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- sidebar menu end-->
+      </div>
+	</body>
+</html>

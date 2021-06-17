@@ -46,49 +46,7 @@
         *********************************************************************************************************************************************************** -->
     <!--header start-->
     <header class="header black-bg">
-      <div class="sidebar-toggle-box">
-        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-      </div>
-      <!--logo start-->
-      <a th:href="@{/utilisateur/home}" class="logo"><b>My shop</b></a>
-      <!--logo end-->
-      <div class="nav notify-row" id="top_menu">
-        <!--  notification start -->
-        <ul class="nav top-menu">
-          <!-- settings start -->
-          <li th:if="${incomplete}" class="dropdown">
-            <a th:if="${incomplete}>0" th:href="@{/utilisateur/incomplete}">
-              <i class="fa fa-tasks"></i>
-              <span class="badge bg-theme">[[${incomplete}]]</span>
-              </a>
-            
-          </li>
-          <!-- settings end -->
-          <!-- inbox dropdown start-->
-          <li id="header_inbox_bar" class="dropdown">
-            <a th:if="${incompleteSell}" data-toggle="" class="dropdown-toggle" th:href="@{/utilisateur/addSell}">
-              <i class="fa fa-envelope-o"></i>
-              <span class="badge bg-theme04">[[${incompleteSell}]]</span>
-              </a>
-            
-          </li>
-          <!-- inbox dropdown end -->
-          <!-- notification dropdown start-->
-          <li id="header_notification_bar" class="dropdown">
-            <a th:if="${activity}" data-toggle="" class="dropdown-toggle" th:href="@{/utilisateur/activity}">
-              <i class="fa fa-bell-o"></i>
-              <span class="badge bg-warning">[[${activity}]]</span>
-              </a>
-          </li>
-          <!-- notification dropdown end -->
-        </ul>
-        <!--  notification end -->
-      </div>
-      <div class="top-menu">
-        <ul class="nav pull-right top-menu">
-          <li><a class="logout" th:href="@{/login?logout}">Logout</a></li>
-        </ul>
-      </div>
+      <div th:replace="header"></div>
     </header>
     <!--header end-->
     <!-- **********************************************************************************************************************************************************
@@ -96,93 +54,7 @@
         *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
     <aside>
-      <div id="sidebar" class="nav-collapse ">
-        <!-- sidebar menu start-->
-        <ul class="sidebar-menu" id="nav-accordion">
-          <p class="centered"><a th:if="${usercon}" href="profile.html"><img th:src="@{'/image/'+${usercon.photo}}" class="img-circle" width="80"></a></p>
-          <h5 th:if="${usercon}" class="centered" th:text="${usercon.nom}"></h5>
-          <li class="mt">
-            <a class="active" th:href="@{/utilisateur/home}">
-              <i class="fa fa-home"></i>
-              <span>Home</span>
-              </a>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-shopping-cart"></i>
-              <span>SELL</span>
-              </a>
-            <ul class="sub">
-              <li><a th:href="@{/utilisateur/sell}">List sell</a></li>
-              <li><a th:href="@{/utilisateur/addSell}">Add sell</a></li>              
-            </ul>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-book"></i>
-              <span>PRODUCTS</span>
-              </a>
-            <ul class="sub">
-              <li><a th:href="@{/utilisateur/product}">List products</a></li>
-              <li><a th:href="@{/utilisateur/addProd}">Add product</a></li>
-              <li><a th:href="@{/utilisateur/category}">Category</a></li>
-              <li><a th:href="@{/utilisateur/unite}">Unite</a></li>
-            </ul>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-group"></i>
-              <span>CLIENTS</span>
-              </a>
-            <ul class="sub">
-              <li><a th:href="@{/utilisateur/client}">List client</a></li>
-              <li><a th:href="@{/utilisateur/addCli}">Add client</a></li>
-            </ul>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-tasks"></i>
-              <span>ORDERS</span>
-              </a>
-            <ul class="sub">
-              <li><a th:href="@{/utilisateur/commande}">List orders</a></li>
-              <li><a th:href="@{/utilisateur/client}">Create order</a></li>
-              <li><a th:href="@{/utilisateur/bill}">Bills</a></li>
-              <li><a th:href="@{/utilisateur/pay}">Pays</a></li>
-            </ul>
-          </li>
-          <li th:if="${usercon.login}=='barry997o'" class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-user"></i>
-              <span>USERS</span>
-              </a>
-            <ul class="sub">
-              <li><a th:href="@{/admin/user}">List users</a></li>
-              <li><a th:href="@{/admin/addUser}">Add user</a></li>
-              <li><a th:href="@{/admin/role}">Role</a></li>
-              <li><a th:href="@{/admin/urole}">User role</a></li>
-            </ul>
-          </li>
-          <li>
-            <a #href="google_maps.html">
-              <i class="fa fa-map-marker"></i>
-              <span>Google Maps </span>
-              </a>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-th"></i>
-              <span>MORE</span>
-              </a>
-            <ul class="sub">
-              <li><a th:href="@{/utilisateur/report}">Report</a></li>
-              <li><a th:href="@{/utilisateur/movement}">Movements</a></li>
-              <li><a th:href="@{/utilisateur/activity}">Activity</a></li>
-            </ul>
-          </li>
-        </ul>
-        <!-- sidebar menu end-->
-      </div>
+      <div th:replace="sidebar"></div>
     </aside>
     <!--sidebar end-->
     <!-- **********************************************************************************************************************************************************
@@ -193,7 +65,7 @@
       <section class="wrapper">
       <div class="row">
 	   	<div class="col-lg-5 col-md-5 col-sm-12">
-	    	<h3><i class="fa fa-angle-right"></i> ADD NEW COMMANDE</h3>
+	    	<h3><i class="fa fa-angle-right"></i> AJOUT D'UNE NOUVELLE COMMANDE</h3>
 	    </div>
       	<div class="col-lg-5 col-md-5" style="margin-top: 20px;">
 	      <form th:action="@{/utilisateur/saveOrder}" th:object="${commande}" method="post">
@@ -204,11 +76,11 @@
 			        <option th:each="c:${clients}" th:value="${c.idCli}" th:text="${c.nom}" th:field=*{client} >
 			      </select>
 		      </div>
-		      <button type="submit" id="btnsave" class="btn btn-primary">Save order</button>
+		      <button type="submit" id="btnsave" class="btn btn-primary">Enregistrer</button>
 	      </form>	      
       	</div>
       	<div style="margin-top: 20px;">
-      		<a th:href="@{/utilisateur/cancelOrder(idCom=${commande.idCom})}"><button class="btn btn-danger">Cancel order</button></a>
+      		<a th:href="@{/utilisateur/cancelOrder(idCom=${commande.idCom})}"><button class="btn btn-danger">Annuller la Commande</button></a>
       	</div>
       </div>  <hr>
         <!-- LIST OF AVAILABLE PRODUCTS -->
@@ -217,7 +89,7 @@
            <div class="panel pn">
              <div class="panel-header">
              <div class="col-lg-8 col-md-8">
-               <h3 style="text-align: center;">Available products</h3>
+               <h3 style="text-align: center;">Produits Disponibles</h3>
              </div>
              
              </div>             
@@ -228,7 +100,7 @@
 		              <table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
 		                <thead>
 		                  <tr>
-		                    <th>PRODUCT</th>
+		                    <th>PRODUIT</th>
 		                    <th style="display: none">PRODUCT</th>
 		                    <th style="display: none">PRODUCT</th>
 		                    <th style="display: none">PRODUCT</th>
@@ -277,16 +149,16 @@
 	                    </div>
 	                  </div>                               <!-- /col-lg-6 -->
 	                  <div class="col-lg-6 col-md-6">
-	                    <label style="margin-top: 5px" for="firstname" class="control-label col-lg-4">Price</label>
+	                    <label style="margin-top: 5px" for="firstname" class="control-label col-lg-4">Prix</label>
 	                    <div class="col-lg-8">
 	                      <input style="margin-top: 5px" class=" form-control" id="fprice" name="price"  type="text" required="required"/>
 	                    </div>
-	                    <label style="margin-top: 5px"  for="firstname" class="control-label col-lg-4">Quantity</label>
+	                    <label style="margin-top: 5px"  for="firstname" class="control-label col-lg-4">Quantite</label>
 	                    <div class="col-lg-8">
 	                      <input style="margin-top: 5px" class=" form-control" id="fquantity" name="quantity" type="number" required="required" />
 	                    </div>
 	                    <div class="col-lg-offset-4 col-lg-8">
-	                      <button style="margin-top: 5px" type="submit" id="btnadd" class="btn btn-theme">Add</button>
+	                      <button style="margin-top: 5px" type="submit" id="btnadd" class="btn btn-theme">Ajout</button>
 	                      
 	                    </div>
 	                  </div> <!-- /col-lg-6 -->
@@ -298,14 +170,14 @@
 		          <div class="col-md-12 mt">
 		            <div class="content-panel">
 		              <table class="table table-hover" id="table1">
-		                <h4><i class="fa fa-angle-right"></i> Selected products</h4>
+		                <h4><i class="fa fa-angle-right"></i> Produit Selectione</h4>
 		                <hr>
 		                <thead>
 		                  <tr >
 		                    <th>DESIGNATION</th>
-		                    <th>QUANTITY</th>
-		                    <th>PRICE</th>
-		                    <th>AMOUNT</th>
+		                    <th>QUANTITE</th>
+		                    <th>PRIX</th>
+		                    <th>TOTAL</th>
 		                  </tr>
 		                </thead>
 		                <tbody>
@@ -315,7 +187,8 @@
 		                  	<td th:text="${d.prixUnit}"></td>
 		                  	<td th:text="${d.qteCom} * ${d.prixUnit}"></td>
 		                  	<td>
-		                  	<a th:href="@{/utilisateur/pullProd(idDCom=${d.idDCom})}"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
+		                  	<a th:href="@{/utilisateur/pullProd(idDCom=${d.idDCom})}"><button 
+		                  	class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
 		                  	</td>
 		                  </tr>
 		                </tbody>
@@ -342,23 +215,7 @@
     <!--main content end-->
     <!--footer start-->
     <footer class="site-footer">
-      <div class="text-center">
-        <p>
-          &copy; Copyrights <strong>MOUSTAPHA BARRY</strong>. All Rights Reserved
-        </p>
-        <div class="credits">
-          <!--
-            You are NOT allowed to delete the credit link to TemplateMag with free version.
-            You can delete the credit link only if you bought the pro version.
-            Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/dashio-bootstrap-admin-template/
-            Licensing information: https://templatemag.com/license/
-          -->
-          Created with Dashio template, Spring JAVA by <a href="https://templatemag.com/">TemplateMag</a>
-        </div>
-        <a th:href="@{/utilisateur/product}" class="go-top">
-          <i class="fa fa-angle-up"></i>
-          </a>
-      </div>
+      <div th:replace="footer"></div>
     </footer>
     <!--footer end-->
   </section>

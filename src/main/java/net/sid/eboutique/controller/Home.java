@@ -39,8 +39,7 @@ public class Home {
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value="/utilisateur/home", method=RequestMethod.GET)
 	public String home(Model model) throws ParseException{
-		//      Sell and orders evolution in the last seven days            //
-		
+		//      Sell and orders evolution in the last seven days            //		
 		Date[] dates = new Date[7];
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
 		
@@ -96,37 +95,37 @@ public class Home {
 		}
 		model.addAttribute("amountt1", amountt1);
 		model.addAttribute("amountp1", amountv1);
-		model.addAttribute("per1", (amountv1+amountt1)/5000000);
+		model.addAttribute("per1", (amountv1+amountt1)/500000);
 				
 		model.addAttribute("amountt2", amountt2);
 		model.addAttribute("amountp2", amountv2);
 		model.addAttribute("day2", day(dates[1]));
-		model.addAttribute("per2", (amountv2+amountt2)/5000000);
+		model.addAttribute("per2", (amountv2+amountt2)/500000);
 		
 		model.addAttribute("amountt3", amountt3);
 		model.addAttribute("amountp3", amountv3);
 		model.addAttribute("day3", day(dates[2]));
-		model.addAttribute("per3", (amountv3 + amountt3)/5000000);
+		model.addAttribute("per3", (amountv3 + amountt3)/500000);
 		
 		model.addAttribute("amountt4", amountt4);
 		model.addAttribute("amountp4", amountv4);
 		model.addAttribute("day4", day(dates[3]));
-		model.addAttribute("per4", (amountv4 + amountt4)/5000000);
+		model.addAttribute("per4", (amountv4 + amountt4)/500000);
 		
 		model.addAttribute("amountt5", amountt5);
 		model.addAttribute("amountp5", amountv5);
 		model.addAttribute("day5", day(dates[4]));
-		model.addAttribute("per5", (amountv5 + amountt5)/5000000);
+		model.addAttribute("per5", (amountv5 + amountt5)/500000);
 		
 		model.addAttribute("amountt6", amountt6);
 		model.addAttribute("amountp6", amountv6);
 		model.addAttribute("day6", day(dates[5]));
-		model.addAttribute("per6", (amountv6 + amountt6)/5000000);
+		model.addAttribute("per6", (amountv6 + amountt6)/500000);
 		
 		model.addAttribute("amountt7", amountt7);
 		model.addAttribute("amountp7", amountv7);
 		model.addAttribute("day7", day(dates[6]));
-		model.addAttribute("per7", (amountv7 + amountt7)/5000000);
+		model.addAttribute("per7", (amountv7 + amountt7)/500000);
 		
 		// find incomplete order
 		
@@ -149,32 +148,32 @@ public class Home {
 		List<Activity> activities = activityService.findAll();
 		Date dt = new Date();
 		i = 0;
-		for (Activity act : activities) {
-			if(act.getDateAct().getYear() == dt.getYear() && act.getDateAct().getMonth() == dt.getMonth() && act.getDateAct().getDate() == dt.getDate()){
-				i++;
-			}
-		}
-		model.addAttribute("activity", i);
+//		for (Activity act : activities) {
+//			if(act.getDateAct().getYear() == dt.getYear() && act.getDateAct().getMonth() == dt.getMonth() && act.getDateAct().getDate() == dt.getDate()){
+//				i++;
+//			}
+//		}
 		model.addAttribute("userRole", uroleService.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
+		model.addAttribute("activity", i);		
 		return "/index";
 	}
 	@SuppressWarnings("deprecation")
 	public String day(Date dt){
 		int i = dt.getDay();
 		if(i==0){
-			return "SUN";
+			return "DIM";
 		}else if(i == 1){
-			return "MON";
+			return "LUN";
 		}else if(i == 2){
-			return "TUE";
+			return "MAR";
 		}else if(i == 3){
-			return "WED";
+			return "MER";
 		}else if(i == 4){
-			return "THU";
+			return "JEU";
 		}else if(i == 5){
-			return "FRI";
+			return "VEN";
 		}else if(i == 6){
-			return "SAT";
+			return "SAM";
 		}else{
 			return "";
 		}

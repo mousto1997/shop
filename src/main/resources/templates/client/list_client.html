@@ -40,49 +40,7 @@
         *********************************************************************************************************************************************************** -->
     <!--header start-->
     <header class="header black-bg">
-      <div class="sidebar-toggle-box">
-        <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
-      </div>
-      <!--logo start-->
-      <a th:href="@{/utilisateur/home}" class="logo"><b>My shop</b></a>
-      <!--logo end-->
-      <div class="nav notify-row" id="top_menu">
-        <!--  notification start -->
-        <ul class="nav top-menu">
-          <!-- settings start -->
-          <li th:if="${incomplete}" class="dropdown">
-            <a th:if="${incomplete}>0" th:href="@{/utilisateur/incomplete}">
-              <i class="fa fa-tasks"></i>
-              <span class="badge bg-theme">[[${incomplete}]]</span>
-              </a>
-            
-          </li>
-          <!-- settings end -->
-          <!-- inbox dropdown start-->
-          <li id="header_inbox_bar" class="dropdown">
-            <a th:if="${incompleteSell}" data-toggle="" class="dropdown-toggle" th:href="@{/utilisateur/addSell}">
-              <i class="fa fa-envelope-o"></i>
-              <span class="badge bg-theme04">[[${incompleteSell}]]</span>
-              </a>
-            
-          </li>
-          <!-- inbox dropdown end -->
-          <!-- notification dropdown start-->
-          <li id="header_notification_bar" class="dropdown">
-            <a th:if="${activity}" data-toggle="" class="dropdown-toggle" th:href="@{/utilisateur/activity}">
-              <i class="fa fa-bell-o"></i>
-              <span class="badge bg-warning">[[${activity}]]</span>
-              </a>
-          </li>
-          <!-- notification dropdown end -->
-        </ul>
-        <!--  notification end -->
-      </div>
-      <div class="top-menu">
-        <ul class="nav pull-right top-menu">
-          <li><a class="logout" th:href="@{/login?logout}">Logout</a></li>
-        </ul>
-      </div>
+      <div th:replace="header"></div>
     </header>
     <!--header end-->
     <!-- **********************************************************************************************************************************************************
@@ -90,93 +48,7 @@
         *********************************************************************************************************************************************************** -->
     <!--sidebar start-->
     <aside>
-      <div id="sidebar" class="nav-collapse ">
-        <!-- sidebar menu start-->
-        <ul class="sidebar-menu" id="nav-accordion">
-          <p class="centered"><a th:if="${usercon}" href="profile.html"><img th:src="@{'/image/'+${usercon.photo}}" class="img-circle" width="80"></a></p>
-          <h5 th:if="${usercon}" class="centered" th:text="${usercon.nom}"></h5>
-          <li class="mt">
-            <a class="active" th:href="@{/utilisateur/home}">
-              <i class="fa fa-home"></i>
-              <span>Home</span>
-              </a>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-shopping-cart"></i>
-              <span>SELL</span>
-              </a>
-            <ul class="sub">
-              <li><a th:href="@{/utilisateur/sell}">List sell</a></li>
-              <li><a th:href="@{/utilisateur/addSell}">Add sell</a></li>              
-            </ul>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-book"></i>
-              <span>PRODUCTS</span>
-              </a>
-            <ul class="sub">
-              <li><a th:href="@{/utilisateur/product}">List products</a></li>
-              <li><a th:href="@{/utilisateur/addProd}">Add product</a></li>
-              <li><a th:href="@{/utilisateur/category}">Category</a></li>
-              <li><a th:href="@{/utilisateur/unite}">Unite</a></li>
-            </ul>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-group"></i>
-              <span>CLIENTS</span>
-              </a>
-            <ul class="sub">
-              <li><a th:href="@{/utilisateur/client}">List client</a></li>
-              <li><a th:href="@{/utilisateur/addCli}">Add client</a></li>
-            </ul>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-tasks"></i>
-              <span>ORDERS</span>
-              </a>
-            <ul class="sub">
-              <li><a th:href="@{/utilisateur/commande}">List orders</a></li>
-              <li><a th:href="@{/utilisateur/client}">Create order</a></li>
-              <li><a th:href="@{/utilisateur/bill}">Bills</a></li>
-              <li><a th:href="@{/utilisateur/pay}">Pays</a></li>
-            </ul>
-          </li>
-          <li th:if="${usercon.login}=='barry997o'" class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-user"></i>
-              <span>USERS</span>
-              </a>
-            <ul class="sub">
-              <li><a th:href="@{/admin/user}">List users</a></li>
-              <li><a th:href="@{/admin/addUser}">Add user</a></li>
-              <li><a th:href="@{/admin/role}">Role</a></li>
-              <li><a th:href="@{/admin/urole}">User role</a></li>
-            </ul>
-          </li>
-          <li>
-            <a #href="google_maps.html">
-              <i class="fa fa-map-marker"></i>
-              <span>Google Maps </span>
-              </a>
-          </li>
-          <li class="sub-menu">
-            <a href="javascript:;">
-              <i class="fa fa-th"></i>
-              <span>MORE</span>
-              </a>
-            <ul class="sub">
-              <li><a th:href="@{/utilisateur/report}">Report</a></li>
-              <li><a th:href="@{/utilisateur/movement}">Movements</a></li>
-              <li><a th:href="@{/utilisateur/activity}">Activity</a></li>
-            </ul>
-          </li>
-        </ul>
-        <!-- sidebar menu end-->
-      </div>
+      <div th:replace="sidebar"></div>
     </aside>
     <!--sidebar end-->
     <!-- **********************************************************************************************************************************************************
@@ -185,7 +57,7 @@
     <!--main content start-->
     <section id="main-content">
       <section class="wrapper">
-        <h3><i class="fa fa-angle-right"></i> LIST OF CLIENTS</h3>
+        <h3><i class="fa fa-angle-right"></i> LISTE DES CLIENTS</h3>
         <div class="row mb">
           <!-- page start-->
           <div class="content-panel">
@@ -194,12 +66,12 @@
                 <thead>
                   <tr>
                     <th>NOM</th>
-                    <th>MOBILE</th>                    
-                    <th class="hidden-phone">ADDRESSE</th>
-                    <th class="hidden-phone">COMPANY</th>
-                    <th class="hidden-phone">CITY</th>
+                    <th>TELEPHONE</th>                    
+                    <th class="hidden-phone">ADDRESS</th>
+                    <th class="hidden-phone">SOCIETE</th>
+                    <th class="hidden-phone">VILLE</th>
                     <th style="display: none">EMAIL</th>
-                    <th>MORE</th>
+                    <th>ACTIONS</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -211,9 +83,12 @@
                     <td class="center hidden-phone" th:text="${c.city}"></td>
                     <td style="display: none" th:text="${c.email}"></td>
                     <td>                      
-                      <a th:href="@{/utilisateur/editClient(idCli=${c.idCli})}"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
-                      <a onclick="return confirm('Would you like to remove this?')" th:each="u:${userRole}" th:if="${u.role.role} == 'admin'"  th:href="@{/utilisateur/deleteClient(idCli=${c.idCli})}"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
-                   	  <a th:href="@{/utilisateur/makeOrder(idCli=${c.idCli})}"><button class="btn btn-success btn-xs"><i class="fa fa-book"> Make a order</i></button></a>
+                      <a th:href="@{/utilisateur/editClient(idCli=${c.idCli})}"><button class="btn btn-primary btn-xs">
+                      <i class="fa fa-pencil"></i></button></a>
+                      <a onclick="return confirm('Would you like to remove this?')" th:each="u:${userRole}" 
+                      th:if="${u.role.role} == 'admin'"  th:href="@{/utilisateur/deleteClient(idCli=${c.idCli})}">
+                      <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
+                   	  <a th:href="@{/utilisateur/makeOrder(idCli=${c.idCli})}"><button class="btn btn-success btn-xs"><i class="fa fa-book"> Passe une commande</i></button></a>
                     </td>
                   </tr>                  
                 </tbody>
@@ -221,7 +96,7 @@
             </div>
           </div>
           <div style="margin: 10px;">
-          	<a th:href="@{/utilisateur/addCli}">Add a new client ?</a>
+          	<a th:href="@{/utilisateur/addCli}">Ajouter un nouveau client ?</a>
           </div>	
           <!-- page end-->
         </div>
@@ -233,23 +108,7 @@
     <!--main content end-->
     <!--footer start-->
     <footer class="site-footer">
-      <div class="text-center">
-        <p>
-          &copy; Copyrights <strong>MOUSTAPHA BARRY</strong>. All Rights Reserved
-        </p>
-        <div class="credits">
-          <!--
-            You are NOT allowed to delete the credit link to TemplateMag with free version.
-            You can delete the credit link only if you bought the pro version.
-            Buy the pro version with working PHP/AJAX contact form: https://templatemag.com/dashio-bootstrap-admin-template/
-            Licensing information: https://templatemag.com/license/
-          -->
-          Created with Dashio template, Spring JAVA by <a href="https://templatemag.com/">TemplateMag</a>
-        </div>
-        <a th:href="@{/utilisateur/product}" class="go-top">
-          <i class="fa fa-angle-up"></i>
-          </a>
-      </div>
+      <div th:replace="footer"></div>
     </footer>
     <!--footer end-->
   </section>
