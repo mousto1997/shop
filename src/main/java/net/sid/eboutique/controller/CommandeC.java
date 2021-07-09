@@ -66,8 +66,8 @@ public class CommandeC {
 	@RequestMapping(value = "/utilisateur/commande", method = RequestMethod.GET)
 	public String commande(Model model){
 		model.addAttribute("commandes", commandeService.findAll());
-		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		return "commande/list_commande";
 	}
 	//                 go to print orders                        //
@@ -327,7 +327,6 @@ public class CommandeC {
 		model.addAttribute("products", products);
 		model.addAttribute("clients", clientService.findAll());
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
-		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		return "commande/edit_commande";
 	}
 	

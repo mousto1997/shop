@@ -7,7 +7,9 @@
 		<div id="sidebar" class="nav-collapse ">
         <!-- sidebar menu start-->
         <ul class="sidebar-menu" id="nav-accordion">
-          <p class="centered"><a th:if="${usercon}" href="profile.html"><img th:src="@{'/image/'+${usercon.photo}}" class="img-circle" width="80"></a></p>
+          <p class="centered"><a th:if="${usercon}" href="profile.html">
+          	<img th:if="${usercon.photo} == ''" th:src="@{'/image/'+${usercon.photo}}" class="img-circle" width="80">
+          	<img th:if="${usercon.photo} != ''" th:src="@{'/image/WhatsApp Image 2021-06-13 at 6.59.16 PM.jpeg'}" class="img-circle" width="80"></a></p>
           <h5 th:if="${usercon}" class="centered" th:text="${usercon.nom}"></h5>
           <li class="mt">
             <a class="active" th:href="@{/utilisateur/home}">
@@ -59,7 +61,7 @@
               <li><a th:href="@{/utilisateur/pay}">Payements</a></li>
             </ul>
           </li>
-          <li class="sub-menu">
+          <li th:each="u:${userRole}" th:if="${u.role.role} == 'admin'" class="sub-menu">
             <a href="javascript:;">
               <i class="fa fa-user"></i>
               <span>UTILISATEURS</span>
@@ -67,7 +69,6 @@
             <ul class="sub">
               <li><a th:href="@{/admin/user}">Liste des Utilisa..</a></li>
               <li><a th:href="@{/admin/addUser}">Nouveau Utilisat..</a></li>
-              <li><a th:href="@{/admin/role}">Role</a></li>
               <li><a th:href="@{/admin/urole}">Role Utilisateurs</a></li>
             </ul>
           </li>          

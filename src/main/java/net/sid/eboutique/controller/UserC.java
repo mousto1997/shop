@@ -83,7 +83,8 @@ ______________________________________________________________     USER   ______
 	}
 	
 //	private String path = System.getProperty("user.dir") + "/src/main/resources/static/image";
-	private String path = "C:/Program Files/Apache Software Foundation/Tomcat 8.5/webapps/shope/WEB-INF/classes/static/image";
+//	private String path1 = "C:/Program Files/Apache Software Foundation/Tomcat 8.5_Tomcat81/webapps/shop/WEB-INF/classes/static/image/users";
+	private String path = "C:/Program Files/Apache Software Foundation/Tomcat 8.5/webapps/shop/WEB-INF/classes/static/image/users";
 	@RequestMapping(value="/admin/saveUser", method = RequestMethod.POST)
 	public String saveUser(Model model, User user, MultipartFile file, String pass) throws IllegalStateException, IOException{
 		

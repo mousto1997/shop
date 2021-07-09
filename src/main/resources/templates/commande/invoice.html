@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="Dashboard">
   <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-  <title>My shop - Invoice</title>
+  <title> PROFORMA : [[${bill.codeFac}]]</title>
 
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
@@ -35,7 +35,7 @@
   ======================================================= -->
 </head>
 
-<body onload="format()">
+<body onload="format()" style="font-family: font-size: 16px">
   <section id="container">
     <!-- **********************************************************************************************************************************************************
         TOP BAR CONTENT & NOTIFICATIONS
@@ -65,7 +65,7 @@
         	<a th:if="${commande.status} == false" style="margin-left: 300px" th:href="@{/utilisateur/payBill(idFacture=${bill.idFacture})}">
         		<button id="btnpay" class="btn btn-theme9 btb-md"><i class="fa fa-money"> Payer la Facture</i></button>
         	</a>
-        	<button id="print1" class="btn btn-default btb-md pull-right"><i class="fa fa-print"> Imprime le bon</i></button>
+        	<button id="print1" class="btn btn-default btb-md pull-right"><i class="fa fa-print">Imprime le bon</i></button>
         </div>
           <div class="row content-panel page">
             <div class="col-lg-10 col-lg-offset-1">
@@ -74,9 +74,7 @@
                   <img th:src="@{'/image/WhatsApp Image 2021-06-13 at 6.59.16 PM.jpeg'}" width="200" ><br>
                   <strong>LAGUINEX</strong>
                   <address>
-	                Kipé Centre-Emetteur République de Guinée<br>
-	                Conakry
-	                <br>
+	                Kipé - Conakry, République de Guinée<br>
 	                <abbr>Email :</abbr> laguinexgn2020@gmail.com<br>
 	                <abbr>Téléphone :</abbr> (+224) 624-16-16-56 / 626-85-30-85
 	                
@@ -84,7 +82,7 @@
                 </div>
                 <!-- /pull-left -->
                 <div class="pull-right">
-                  <h2 th:text="'PROFORMA : '+${bill.codeFac}"></h2>
+                	<!--   <h2 th:text="'PROFORMA : '+${bill.codeFac}"></h2>   -->
                 </div>
                 <!-- /pull-right -->
                 <div class="clearfix"></div>
@@ -93,77 +91,101 @@
                 <br>
                 <div class="row">
                   <div class="col-md-8 pull-left">
-                    <h4 th:text="${client.nom}"></h4>
+                    <h4 style="font-weight:bold;" th:text="'CLIENT : '+${client.nom}"></h4>
                     <address>
-	                  <strong th:text="${client.company}"></strong><br>
-	                  <label th:text="${client.adress}+', '"></label>
-	                  <label th:text="${client.city}"></label><br>
-	                  <abbr title="Phone">Tél. : </abbr><label th:text="${client.phone}"></label>
+	                  <label th:if="${client.company}" th:text="'SOCIETE : '+${client.company}"></label><br>
+	                  <label th:if="${client.company}" th:text="'ADDRESS : '+${client.adress}+', '"></label>
+	                  <label th:if="${client.company}" th:text="${client.city}"></label><br>
+	                  <abbr>Tél. : </abbr><label th:text="${client.phone}"></label>
 	                </address>
                   </div>
                   <!-- /col-md-9 -->
                   <div class="col-lg-4 col-md-4">
                     <div class="pull-right">
-                      <div class="pull-left">CODE COMMANDE : ... </div>
+                      <div class="pull-left">CODE COMMANDE : </div>
                       <div class="pull-right" th:text="${commande.codeCom}"></div>
                       <div class="clearfix"></div>
                     </div> <br> 
                     <div class="pull-right">
                       <!-- /col-md-3 -->
-                      <div class="pull-left"> DU : ................ </div>
+                      <div class="pull-left"> DU : ...............</div>
                       <div class="pull-right" th:text="${commande.dateCom}"></div>
                       <div class="clearfix"></div>
                     </div>
                     <!-- /row -->
                     <br>
-                    <div class="well well-small green pull-right">
+                    <div class="well well-small green pull-right" style="font-weight: bold;">
                       <div class="pull-left"> Total Due : GNF</div>
-                      <div class="pull-right"> <label id="amountd" th:text="${commande.montantR}"></label> </div>
+                      <div class="pull-right"> <label style="font-weight: bold;" id="amountd" th:text="${commande.montantR}"></label> </div>
                       <div class="clearfix"></div>
                     </div>
                   </div>
                   <!-- /invoice-body -->
                 </div>
                 <!-- /col-lg-10 -->
-                <table class="table">
+                <table class="table table-bordered">
                   <thead>
-                    <tr>
-                      <th style="width:150px" class="text-center">QTE</th>
-                      <th class="text-left">DESCRIPTION</th>
-                      <th style="width:140px" class="text-right">PRIX UNITAIRE</th>
-                      <th style="width:90px" class="text-right">TOTAL</th>
+                    <tr>                      
+                      <th class="text-left">N°</th>
+                      <th class="text-left">DESIGNATION</th>
+                      <th style="width:150px" class="text-left">QTE</th>
+                      <th style="width:200px" class="text-left">PRIX UNITAIRE</th>
+                      <th style="width:100px" class="text-right">TOTAL</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr th:each="d:${details}">
-                      <td th:text="${d.qteCom} + ' ' + ${d.product.unite.libelleUnit}"></td>
+                      <td id="countRow"></td>
                       <td  th:text="${d.product.designation}"></td>
-                      <td class="text-right"  th:text="'Le'+${d.prixUnit}"></td>
-                      <td class="text-right"  th:text="'Le'+${d.qteCom} * ${d.prixUnit}"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="2" rowspan="4">
-                        <h4>Terms and Conditions</h4>
-                        <p>Thank you for your business. We do expect payment within 14 days, so please process this invoice within that time. There will be a 1.5% interest charge per month on late invoices.</p>
-                        <td class="text-right"><strong>MTTC : GNF</strong></td>
-                        <td id="amountt" class="text-right" th:text="${commande.montantT}"></td>
-                    </tr>
-                    <tr>
-                      <td class="text-right no-border"><strong>Avance : GNF</strong></td>
-                      <td id="amountp" class="text-right"  th:text="${commande.montantP}"></td>
-                    </tr>
-                    <tr>
-                      <td class="text-right no-border"><strong>Total Due : GNF</strong></td>
-                      <td id="amountr" class="text-right" th:text="${commande.montantR}"></td>
+                      <td  style="width:150px" class="text-left" th:text="${d.qteCom} + ' ' + ${d.product.unite.libelleUnit}"></td>                      
+                      <td style="width:200px" class="text-left"  th:text="'GNF'+${d.prixUnit}"></td>
+                      <td  style="width:100px" class="text-right"  th:text="'GNF'+${d.qteCom} * ${d.prixUnit}"></td>
                     </tr>
                   </tbody>
-                </table>
-                <br>
-                <br>
+                 </table>
+                 <div class="row">
+                 	<div class="col-md-4 col-md-offset-8">
+                 		<label class="col-md-6 text-center"><strong>MTTC : GNF</strong></label>
+                 		<div id="amountt" class="col-md-6 pull-right" th:text="${commande.montantT}"></div>
+                 		         		
+                 	</div>
+                 </div>
+                 <div class="row">
+                 	<div class="col-md-4 col-md-offset-8">
+                 		<label class="col-md-6 text-center"><strong>Avance : GNF</strong></label>
+                 		<div id="amountp" class="col-md-6 pull-right"  th:text="${commande.montantP}"></div>
+                 		
+                 	</div>
+                 </div>
+                 <div class="row">
+                 	<div class="col-md-4 col-md-offset-8">
+                 		<label class="col-md-7 text-center"><strong>Total Due : GNF</strong></label>
+                 		<div style="font-weight: bold;" id="amountr" class="col-md-5 pull-right" th:text="${commande.montantR}"></div>
+                 		
+                 	</div>
+                 </div>
+                   
+                <div th:if="${items} == 1 "><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 2 "><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 3 "><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 4 "><br><br><br><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 5 "><br><br><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 6 "><br><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 7 "><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 8 "><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 9 "><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 10 "><br><br><br><br><br><br></div>
+                <div th:if="${items} == 11 "><br><br><br><br><br></div>
+                <div th:if="${items} == 12 "><br><br><br><br></div>
+                <div th:if="${items} == 13 "><br><br><br></div>
+                <div th:if="${items} == 14 "><br><br></div>
+                <div th:if="${items} == 15 "><br></div>
+                <div th:if="${items} == 16 "></div>
               </div>
             </div>
           </div>
           <br>
+          
           <div class="row content-panel page1">
             <div class="col-lg-10 col-lg-offset-1">
               <div class="invoice-body">
@@ -171,17 +193,14 @@
                   <img th:src="@{'/image/WhatsApp Image 2021-06-13 at 6.59.16 PM.jpeg'}" width="200" ><br>
                   <strong>LAGUINEX</strong>
                   <address>
-	                Kipé Centre-Emetteur République de Guinée<br>
-	                Conakry
-	                <br>
-	                <abbr title="Phone">Téléphone :</abbr> (+224) 624-16-16-56 / 626-85-30-85<br>
-	                <abbr title="Phone">Email :</abbr> laguinexgn2020@gmail.com
+	                Kipé - Conakry, République de Guinée<br>
+	                <abbr>Email :</abbr> laguinexgn2020@gmail.com<br>
+	                <abbr>Téléphone :</abbr> (+224) 624-16-16-56 / 626-85-30-85
+	                
 	              </address>
                 </div>
                 <!-- /pull-left -->
-                <div class="pull-right">
-                  <h2>Bon de Commande</h2>
-                </div>
+                
                 <!-- /pull-right -->
                 <div class="clearfix"></div>
                 <br>
@@ -189,25 +208,25 @@
                 <br>
                 <div class="row">
                   <div class="col-md-7 pull-left">
-                    <h4 th:text="${client.nom}"></h4>
+                    <h4 style="font-weight:bold;" th:text="'CLIENT : '+${client.nom}"></h4>
                     <address>
-	                  <strong th:text="${client.company}"></strong><br>
-	                  <label th:text="${client.adress}+', '"></label>
-	                  <label th:text="${client.city}"></label><br>
-	                  <abbr title="Phone">TELEPHONE : </abbr><label th:text="${client.phone}"></label>
+	                  <label th:if="${client.company}" th:text="'SOCIETE : '+${client.company}"></label><br>
+	                  <label th:if="${client.company}" th:text="'ADDRESS : '+${client.adress}+', '"></label>
+	                  <label th:if="${client.company}" th:text="${client.city}"></label><br>
+	                  <abbr>Tél. : </abbr><label th:text="${client.phone}"></label>
 	                </address>
                   </div>
                   <!-- /col-md-9 -->
                   <div class="col-md-4 pull-right">
                     <br>
                     <div>
-                      <div class="pull-left"> ORDER CODE : </div>
+                      <div class="pull-left"> CODE COMMANDE : </div>
                       <div class="pull-right" th:text="${commande.codeCom}"></div>
                       <div class="clearfix"></div>
                     </div>
                     <div>
                       <!-- /col-md-3 -->
-                      <div class="pull-left"> OF : </div>
+                      <div class="pull-left"> DU : </div>
                       <div class="pull-right" th:text="${commande.dateCom}"></div>
                       <div class="clearfix"></div>
                     </div>
@@ -217,9 +236,10 @@
                   <!-- /invoice-body -->
                 </div>
                 <!-- /col-lg-10 -->
-                <table class="table">
+                <table class="table table-bordered">
                   <thead>
                     <tr>
+                      <th>N° 2</th>
                       <th class="text-left">DESIGNATION</th>
                       <th style="width:420px" class="text-left">DESCRIPTION</th>
                       <th style="width:120px" class="text-center">SIZE</th>
@@ -228,21 +248,39 @@
                   </thead>
                   <tbody>
                     <tr th:each="d:${details}">
+                    	<td></td>
                       <td th:text="${d.product.designation}"></td>
                       <td style="width:420px" class="text-left" th:text="${d.product.description}"></td>
                       <td class="text-center" th:text="${d.product.siz}"></td>
                       <td class="text-center" th:text="${d.qteCom}+' '+${d.product.unite.libelleUnit}"></td>
                     </tr>
-                     <tr>
-                      <td></td>
-                      <td></td>
-                      <td class="text-center no-border"><strong>Total</strong></td>
-                      <td class="text-center"  th:text="${articles} + ' Articles'"></td>
-                    </tr>
                   </tbody>
                 </table>
-                <br>
-                <br>
+                <div class="row">
+                 	<div class="col-md-6 col-md-offset-6">
+                 		
+                 		<div style="font-weight: bold;" th:text="'Quantité Total de Produits : '+${articles} + ' Articles'"></div>
+                 		         		
+                 	</div>
+                 </div>
+                 
+                <div th:if="${items} == 1 "><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 2 "><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 3 "><br><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 4 "><br><br><br><br><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 5 "><br><br><br><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 6 "><br><br><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 7 "><br><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 8 "><br><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 9 "><br><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 10 "><br><br><br><br><br><br><br></div>
+                <div th:if="${items} == 11 "><br><br><br><br><br><br></div>
+                <div th:if="${items} == 12 "><br><br><br><br><br></div>
+                <div th:if="${items} == 13 "><br><br><br><br></div>
+                <div th:if="${items} == 14 "><br><br><br></div>
+                <div th:if="${items} == 15 "><br><br></div>
+                <div th:if="${items} == 16 "><br></div> 
+                <div th:if="${items} == 17 "></div>          
               </div>
             </div>
           </div>
@@ -285,17 +323,16 @@
 			importCSS: true,
 			importStyle: false,
 			printContainer: true,
-			loadCSS: "",
-			pageTitle: "PROFORMA",
+			pageTitle: ".",
 	//		header: "<h1 style='text-align: center; padding-bottom: 25px;'>List of products</h1>",
-			footer: "<p>.........................................................................................................................................................................................................................<br>Siége Social : Kipé Centre-Emetteur République de Guinée<br> N° Immatriculation : /RCCM/GN.TCC.2020.01449 <br> N° Compte SGBG : 1000029302681 / NIF : 921316014 <br> Email : laguinexgn2020@gmail.com ; Tél.: (+224) 624-16-16-56 / 626-85-30-85 </p>",
+			footer: "<p>.........................................................................................................................................................................................................................<br> N° Immatriculation : /RCCM/GN.TCC.2020.01449 <br> N° Compte SGBG : 1000029302681 / NIF : 921316014 <br>",
 			removeInLine: false,
 			printDelay: 333,
 			formValues: true,
 			canvas: false,
 			base: false,
 			doctypeString: '<!DOCTYPE html>',
-			removeScripts: false,
+			removeScripts: true,
 			copyTagClasses: false				
 		});
 	})
@@ -306,10 +343,10 @@
 			importCSS: true,
 			importStyle: false,
 			printContainer: true,
-			loadCSS: "",
-			pageTitle: "Order form",
+			loadCSS: "Copy right",
+			pageTitle: "BON DE COMMANDE",
 	//		header: "<h1 style='text-align: center; padding-bottom: 25px;'>List of products</h1>",
-			footer: "<p>.........................................................................................................................................................................................................................<br>Siége Social : Kipé Centre-Emetteur République de Guinée<br> N° Immatriculation : /RCCM/GN.TCC.2020.01449 <br> N° Compte SGBG : 1000029302681 / NIF : 921316014 <br> Email : laguinexgn2020@gmail.com ; Tél.: (+224) 624-16-16-56 / 626-85-30-85 </p>",
+			footer: "<p>.........................................................................................................................................................................................................................<br> N° Immatriculation : /RCCM/GN.TCC.2020.01449 <br> N° Compte SGBG : 1000029302681 / NIF : 921316014 <br>",
 			removeInLine: false,
 			printDelay: 333,
 			formValues: true,
@@ -329,6 +366,18 @@
 	  document.getElementById("amountp").innerHTML = formater.format(document.getElementById("amountp").innerHTML);
 	  document.getElementById("amountr").innerHTML = formater.format(document.getElementById("amountr").innerHTML);
     }
+  
+  	var table = document.getElementsByTagName('table')[0];
+  	for(j = 1; j < table.rows.length; j++)
+  		{
+  			table.rows[j].cells[0].innerHTML = j;
+  		}
+  	
+  	var table2 = document.getElementsByTagName('table')[1];
+  	for(j = 1; j < table2.rows.length; j++)
+  		{  			
+  			table2.rows[j].cells[0].innerHTML = j;
+  		}
   </script>	
 </body>
 </html>

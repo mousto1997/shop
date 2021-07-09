@@ -98,8 +98,8 @@
                     <td style="display: none" id="qtym" th:text="${p.qteMin}"></td>
                     <td style="display: none" th:text="${p.unite.libelleUnit}"></td>
                     <td>                      
-                      <a th:href="@{/utilisateur/modifyProd(idProd=${p.idProd})}"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
-                      <a  th:each="u:${userRole}" th:if="${u.role.role} == 'admin'" onclick="return confirm('Would you like to remove this?')" th:href="@{/utilisateur/deleteProd(idProd=${p.idProd})}"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
+                      <a th:href="@{/utilisateur/modifyProd(idProd=${p.idProd})}"><button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i>edit</button></a>
+                      <a th:each="u:${userRole}" th:if="${u.role.role} == 'admin'" onclick="return confirm('Would you like to remove this?')" th:href="@{/admin/deleteProd(idProd=${p.idProd})}"><button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button></a>
                     </td>
                   </tr>                  
                 </tbody>

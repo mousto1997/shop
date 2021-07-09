@@ -62,7 +62,7 @@ section{
 .border{
 	position fix;
 	border: 1px solid black;
-	font-family: calibri;
+	font-family: Times New Roman, Georgia, Serif;
 	font-size: 17px;
 	color: black;
 	padding: 10px;
@@ -81,7 +81,7 @@ section{
 	background-color: white;
 	border: 2px double black;
 	color: black;
-	font-family: sans-serif;
+	font-family: Times New Roman, Georgia, Serif;
 }
 body{
 	background-color: #C3C3C3;

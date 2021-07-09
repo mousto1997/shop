@@ -20,7 +20,6 @@ import net.sid.eboutique.dao.UserDAO;
 import net.sid.eboutique.dao.UserRoleDAO;
 import net.sid.eboutique.entities.Activity;
 import net.sid.eboutique.entities.Client;
-import net.sid.eboutique.entities.User;
 
 @Controller
 public class ClientC {
@@ -37,8 +36,8 @@ public class ClientC {
 	public String client(Model model){	
 		List<Client> clients = clientService.findAll();
 		model.addAttribute("clients", clients);	
-		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		return "client/list_client";
 	}
 	

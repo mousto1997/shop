@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import net.sid.eboutique.dao.UserDAO;
-import net.sid.eboutique.entities.User;
+//import net.sid.eboutique.dao.UserDAO;
+//import net.sid.eboutique.entities.User;
 
 
 
@@ -17,9 +17,6 @@ import net.sid.eboutique.entities.User;
 @EnableAutoConfiguration
 @SpringBootApplication
 public class SekApplication implements CommandLineRunner{
-	
-	@Autowired
-	UserDAO userRep;
 
 	public static void main(String[] args) {
 		
@@ -31,7 +28,7 @@ public class SekApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		BCryptPasswordEncoder bc = new BCryptPasswordEncoder();
 		// TODO Auto-generated method stub
-		User user = new User("soumah", "Saliou Soumah", "barry@gmail.com", "123456", bc.encode("12345"), true);
+//		User user = new User("soumah", "Saliou Soumah", "barry@gmail.com", "123456", bc.encode("12345"), true);
 		
 //		userRep.save(user);
 		

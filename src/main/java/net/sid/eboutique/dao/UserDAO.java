@@ -5,9 +5,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import net.sid.eboutique.entities.User;
 
+@Repository
 public interface UserDAO extends JpaRepository<User, String>{
 	@Query("select u from User u where u.login = :x")
 	public User userByUsername(@Param("x")String username);

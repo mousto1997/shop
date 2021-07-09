@@ -5,12 +5,14 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 @SuppressWarnings("serial")
 @Entity
-public class User implements Serializable {
-	@Id 
+public class User implements Serializable {	
+	@Id
 	private String login;
 	private String nom;	
 	private String email;

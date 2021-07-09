@@ -45,8 +45,8 @@ public class ProductC {
 	public String product(Model model){
 		List<Product> products = productService.products();
 		model.addAttribute("products", products);
-		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
 		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
+		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
 		return "product/list_product";
 	}
 	
@@ -57,6 +57,7 @@ public class ProductC {
 		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("unites", uniteService.findAll());
 		model.addAttribute("product", new Product());
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
 		return "product/add_prod";		
 	}
@@ -70,6 +71,7 @@ public class ProductC {
 			model.addAttribute("unites", uniteService.findAll());
 			model.addAttribute("product", new Product());
 			model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
+			model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 			return "product/add_prod";		
 		}
 		
@@ -79,6 +81,7 @@ public class ProductC {
 			model.addAttribute("unites", uniteService.findAll());
 			model.addAttribute("product", new Product());
 			model.addAttribute("existProd", "This porduct already exist.");
+			model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 			model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
 			return "product/add_prod";
 		}				
@@ -129,6 +132,7 @@ public class ProductC {
 		model.addAttribute("articles", articles);
 		model.addAttribute("amount", amount);
 		model.addAttribute("products", productService.findAll());
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
 		return "product/elements_prod";
 	}
@@ -140,6 +144,7 @@ public class ProductC {
 		model.addAttribute("categories", categoryService.findAll());
 		model.addAttribute("unites", uniteService.findAll());
 		model.addAttribute("product", productService.getOne(idProd));
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
 		return "product/edit_prod";
 	}	
@@ -153,8 +158,10 @@ public class ProductC {
 		act.setDateAct(new Date());
 		act.setUser(userService.getOne(new Home().curentUser()));
 		activityService.save(act);
+		System.out.println("1111111");
 		productService.deleteById(idProd);
-		return "redirect:product";
+		System.out.println("2222222");
+		return "redirect:/utilisateur/product";
 	}
 	
 	//                                Add stock                             //
@@ -162,6 +169,7 @@ public class ProductC {
 	@RequestMapping(value="/utilisateur/addStock", method = RequestMethod.GET)
 	public String addstock(Model model, int idProd){
 		model.addAttribute("product", productService.getOne(idProd));
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
 		return "product/add_stock";
 	}
@@ -212,6 +220,7 @@ public class ProductC {
 		}
 		if(br.hasErrors()){
 			model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
+			model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 			return "category/categorie";
 		}
 		categoryService.save(category);
@@ -222,9 +231,11 @@ public class ProductC {
 	public String modifyCat(Model model, int idCat){
 		model.addAttribute("categorie", categoryService.getOne(idCat));
 		model.addAttribute("categories", categoryService.findAll());
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
 		return "category/categorie";
 	}
+	
 	@Autowired
 	public ActivityDAO actService;
 	// delete category
@@ -261,10 +272,12 @@ public class ProductC {
 		Unite unit = uniteService.existUnite(unite.getLibelleUnit());
 		if(unit != null){
 			model.addAttribute("existUnit", "This is already exist");
+			model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 			model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
 			return "category/measure";
 		}
 		if(br.hasErrors()){
+			model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 			model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
 			return "category/measure";
 		}
@@ -276,6 +289,7 @@ public class ProductC {
 	public String modifyUnit(Model model, int idUnit){
 		model.addAttribute("measure", uniteService.getOne(idUnit));
 		model.addAttribute("measures", uniteService.findAll());
+		model.addAttribute("userRole", userRole.uroleByUser(userService.getOne(new Home().curentUser()).getLogin()));
 		model.addAttribute("usercon", userService.getOne(new Home().curentUser()));
 		return "category/measure";
 	}
